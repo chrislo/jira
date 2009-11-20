@@ -16,11 +16,6 @@ class Issues
                        'tempMax' => 1000})
 
     open_issues = res["rss"]["channel"]["item"]
-    
-    issues = []
-    open_issues.each do |i|
-      issues << OpenStruct.new(i)
-    end
-    return issues
+    issues = open_issues.map {|i| OpenStruct.new(i)}
   end
 end
