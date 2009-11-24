@@ -1,3 +1,6 @@
+# set up for class-level tests
+ENV['http_proxy'] = 'bob'
+
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
 
 module Jira
@@ -7,6 +10,10 @@ module Jira
       FakeWeb.register_uri(:get,
                            "https://jira.dev.bbc.co.uk/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?sorter/field=priority&resolution=-1&assigneeSelect=issue_current_user&tempMax=1000&sorter/order=DESC",
                            :body => File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'issues.xml'))))
+    end
+
+    it "should use the http proxy from the environment" do
+      Jira::Issue.default_options[:http_proxyaddr].should == 'bob'
     end
 
     describe "find_all_open_assigned_issues" do

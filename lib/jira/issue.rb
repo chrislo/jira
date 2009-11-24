@@ -5,6 +5,7 @@ module Jira
   class Issue
     include HTTParty
     format :xml
+    http_proxy ENV['http_proxy']
 
     def self.find_all_open_assigned_issues
       res = get('https://jira.dev.bbc.co.uk/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml',
