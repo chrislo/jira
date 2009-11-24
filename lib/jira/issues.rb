@@ -1,6 +1,5 @@
-path = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'httparty', 'lib', 'httparty'))
-puts path
-require path 
+require 'rubygems'
+require 'httparty'
 
 class Issues
   include HTTParty

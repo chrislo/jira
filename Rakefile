@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/chrislo/jira"
     gem.authors = ["chrislo"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "fakeweb", ">= 1.2.7"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
