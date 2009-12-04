@@ -1,25 +1,22 @@
 require 'rubygems'
-require 'httparty'
+require 'rest_client'
+require 'xmlsimple'
 
 module Jira
   class Issue
-    include HTTParty
-    format :xml
-    
-    options = Jira.configuration
-    puts options
-    
-    def self.find_all_open_assigned_issues
-      res = get('https://jira.dev.bbc.co.uk/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml',
-                :query => {
-                  'resolution' => -1,
-                  'assigneeSelect' => 'issue_current_user',
-                  'sorter/field' => 'priority',
-                  'sorter/order' => 'DESC',
-                  'tempMax' => 1000
-                })
+    def initialize(options = nil)
+      @resource = rest_resource(options)
+    end
 
-      open_issues = res["rss"]["channel"]["item"]
+    def rest_resource(options)
+      RestClient.proxy = ENV['http_proxy']
+      @resource = RestClient::Resource.new('https://jira.dev.bbc.co.uk', options)
+    end
+    
+    def find_all_open_assigned_issues
+      res = @resource['sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?resolution=-1&assigneeSelect=issue_current_user'].get
+      doc = XmlSimple.xml_in res.to_s 
+      open_issues = doc['channel'].first['item']
       issues = open_issues.map {|i| OpenStruct.new(i)}
     end
   end
