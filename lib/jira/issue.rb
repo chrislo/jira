@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rest_client'
 require 'xmlsimple'
+require 'ostruct'
 
 module Jira
   class Issue
@@ -10,7 +11,7 @@ module Jira
 
     def rest_resource(options)
       RestClient.proxy = ENV['http_proxy']
-      @resource = RestClient::Resource.new('https://jira.dev.bbc.co.uk', options)
+      @resource = RestClient::Resource.new(options[:base_path], options)
     end
     
     def find_all_open_assigned_issues
