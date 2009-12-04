@@ -20,5 +20,11 @@ module Jira
       open_issues = doc['channel'].first['item']
       issues = open_issues.map {|i| OpenStruct.new(i)}
     end
+
+    def list_all_open_assigned_issues
+      issues = find_all_open_assigned_issues
+      issues.map{|i| "* #{i.title}"}.join("\n")
+    end
+    
   end
 end

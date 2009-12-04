@@ -29,7 +29,8 @@ module Jira
     end
     
     def handle_ticket_list
-      Jira::Issue.new(@options).find_all_open_assigned_issues
+      issues = Jira::Issue.new(@options).list_all_open_assigned_issues
+      puts issues
     end
     
     def parse_options!

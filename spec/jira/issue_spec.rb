@@ -20,5 +20,13 @@ module Jira
         issues.map {|i| i.title}.flatten.should include('[TST-14301] Test')
       end
     end
+    
+    describe "list all open assigned issues" do
+      it "should give a formated list of issue titles" do
+        @ji.stub!(:find_all_open_assigned_issues).
+          and_return([OpenStruct.new(:title => "An issue"),OpenStruct.new(:title => "A second issue")])
+        @ji.list_all_open_assigned_issues.should == "* An issue\n* A second issue"
+      end
+    end
   end
 end
