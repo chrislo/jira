@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+ 
+require 'rubygems'
+
+#   require 'jira'
+require File.dirname(__FILE__) + '/../lib/jira'
+
+Jira::CLI.execute
