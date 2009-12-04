@@ -6,12 +6,14 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "jira"
     gem.summary = %Q{A command line interface to the JIRA issue tracking system}
-    gem.description = %Q{}
-    gem.email = "chris.lowis@bbc.co.uk"
+    gem.description = %Q{A command line interface to the JIRA issue tracking system}
+    gem.email = "chris.lowis@gmail.com"
     gem.homepage = "http://github.com/chrislo/jira"
     gem.authors = ["chrislo"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "fakeweb", ">= 1.2.7"
+    gem.add_dependency "rest-client", ">= 1.0.3"
+    gem.add_dependency "xml-simple", ">= 1.0.12"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError

@@ -25,6 +25,5 @@ module Jira
       issues = find_all_open_assigned_issues
       issues.map{|i| "* #{i.title}"}.join("\n")
     end
-    
   end
 end
