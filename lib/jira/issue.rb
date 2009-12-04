@@ -11,7 +11,7 @@ module Jira
 
     def rest_resource(options)
       RestClient.proxy = ENV['http_proxy']
-      @resource = RestClient::Resource.new(options[:base_path], options)
+      @resource = RestClient::Resource.new(options[:jira_base], options)
     end
     
     def find_all_open_assigned_issues
