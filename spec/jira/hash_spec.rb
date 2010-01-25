@@ -7,7 +7,7 @@ describe Hash do
   describe "to_query" do
     it "should convert a hash to a query string" do
       h = {:pid => 12345, :issuetype => 3}
-      h.to_query.should == "pid=12345&issuetype=3"
+      h.to_query.should == "issuetype=3&pid=12345"
     end
     
     it "should escape spaces in strings" do
