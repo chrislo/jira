@@ -20,7 +20,7 @@ spec = Gem::Specification.new do |s|
   
   # Change these as appropriate
   s.name              = "jira"
-  s.version           = "0.1.0"
+  s.version           = "0.1.1"
   s.summary           = "A command line interface to the JIRA issue tracking system"
   s.author            = "Chris Lowis"
   s.email             = "chris.lowis@gmail.com"
