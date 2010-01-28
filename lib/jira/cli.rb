@@ -21,8 +21,10 @@ module Jira
     
     def execute!
       case action
-      when 'list':
-          handle_ticket_list
+      when /[A-Z]+-\d+/i
+        handle_ticket(action)
+      when 'list'
+        handle_ticket_list
       else
         puts 'not a command'
       end
@@ -31,6 +33,11 @@ module Jira
     def handle_ticket_list
       issues = Jira::Issue.new(@options).list_all_open_assigned_issues
       puts issues
+    end
+    
+    def handle_ticket(ticket_number)
+      ticket = Jira::Issue.new(@options).find_by_ticket_number(ticket_number)
+      puts ticket.title
     end
     
     def parse_options!
