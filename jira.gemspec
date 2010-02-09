@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{jira}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Lowis"]
-  s.date = %q{2010-01-28}
+  s.date = %q{2010-02-09}
   s.default_executable = %q{jira}
   s.email = %q{chris.lowis@gmail.com}
   s.executables = ["jira"]

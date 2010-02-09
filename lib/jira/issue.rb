@@ -19,7 +19,9 @@ module Jira
       doc = XmlSimple.xml_in res.to_s
       item = doc['channel'].first['item'].first
       OpenStruct.new(:title => item['title'].first,
-                     :description => item['description'].first)
+                     :description => item['description'].first,
+                     :assignee => item['assignee'].first['username'],
+                     :resolution => item['resolution'].first['content'])
     end
     
     def find_all_open_assigned_issues

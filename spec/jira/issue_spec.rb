@@ -20,6 +20,14 @@ module Jira
       it "should return the description of the issue" do
         @ticket.description.should == "A test ticket"
       end
+
+      it "should return the assignee of a ticket" do
+        @ticket.assignee.should == "chris.lowis"
+      end
+      
+      it "should return the resolution status of the ticket" do
+        @ticket.resolution.should == "Unresolved"
+      end
     end
 
     describe "finding and listing issues" do
