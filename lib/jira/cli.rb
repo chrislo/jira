@@ -38,6 +38,8 @@ module Jira
     def handle_ticket(ticket_number)
       ticket = Jira::Issue.new(@options).find_by_ticket_number(ticket_number)
       puts ticket.title
+      puts ticket.description
+      puts "#{ticket.assignee} (#{ticket.resolution})"
     end
     
     def parse_options!
