@@ -12,6 +12,17 @@ module Jira
                            :body => File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'TST-14301.xml'))))
     end
 
+    describe "empty fields" do
+      it "should cope with an empty description field" do
+        FakeWeb.register_uri(:get,
+                             "#{@options[:jira_base]}/si/jira.issueviews:issue-xml/TST-104/TST-104.xml",
+                             :body => File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'TST-104.xml'))))
+        ticket = Jira::Issue.new(@options).find_by_ticket_number('TST-104')
+        ticket.description.should == ""
+      end
+    end
+
+
     describe "sanitize the description" do
       it "should sanitize the description of the issue" do
         Sanitize.should_receive(:clean).with("A test ticket")

@@ -19,9 +19,8 @@ module Jira
       res = @resource["si/jira.issueviews:issue-xml/#{ticket_number}/#{ticket_number}.xml"].get
       doc = XmlSimple.xml_in res.to_s
       item = doc['channel'].first['item'].first
-
       OpenStruct.new(:title => item['title'].first,
-                     :description => Sanitize.clean(item['description'].first),
+                     :description => sanitize(item['description'].first),
                      :assignee => item['assignee'].first['username'],
                      :resolution => item['resolution'].first['content'])
     end
@@ -37,5 +36,15 @@ module Jira
       issues = find_all_open_assigned_issues
       issues.map{|i| "* #{i.title}"}.join("\n")
     end
+
+    private 
+    def sanitize(text)
+      if text.is_a? Hash
+        ""
+      else
+        Sanitize.clean(text)
+      end
+    end
+
   end
 end
