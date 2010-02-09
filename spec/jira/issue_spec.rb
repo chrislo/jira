@@ -2,14 +2,26 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'spec_helper'))
 
 module Jira
   describe Issue do
+
+    before(:each) do
+      @options = {}
+      @options[:jira_base] = 'https://my.jira'
+        
+      FakeWeb.register_uri(:get,
+                           "#{@options[:jira_base]}/si/jira.issueviews:issue-xml/TST-14301/TST-14301.xml",
+                           :body => File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'TST-14301.xml'))))
+    end
+
+    describe "sanitize the description" do
+      it "should sanitize the description of the issue" do
+        Sanitize.should_receive(:clean).with("A test ticket")
+        ticket = Jira::Issue.new(@options).find_by_ticket_number('TST-14301')
+      end
+    end
+
     describe "details for an individual issue" do
       before(:each) do
-        options[:jira_base] = 'https://my.jira'
-        
-        FakeWeb.register_uri(:get,
-                             "#{options[:jira_base]}/si/jira.issueviews:issue-xml/TST-14301/TST-14301.xml",
-                             :body => File.read(File.expand_path(File.join(File.dirname(__FILE__), '..', 'fixtures', 'TST-14301.xml'))))
-        ji = Jira::Issue.new(options)
+        ji = Jira::Issue.new(@options)
         @ticket = ji.find_by_ticket_number('TST-14301')
       end
 

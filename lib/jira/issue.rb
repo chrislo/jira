@@ -2,6 +2,7 @@ require 'rubygems'
 require 'rest_client'
 require 'xmlsimple'
 require 'ostruct'
+require 'sanitize'
 
 module Jira
   class Issue
@@ -18,8 +19,9 @@ module Jira
       res = @resource["si/jira.issueviews:issue-xml/#{ticket_number}/#{ticket_number}.xml"].get
       doc = XmlSimple.xml_in res.to_s
       item = doc['channel'].first['item'].first
+
       OpenStruct.new(:title => item['title'].first,
-                     :description => item['description'].first,
+                     :description => Sanitize.clean(item['description'].first),
                      :assignee => item['assignee'].first['username'],
                      :resolution => item['resolution'].first['content'])
     end
